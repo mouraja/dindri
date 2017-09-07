@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block javascript %}
+<link href="{% static 'css/relacionamento.css' %}" rel="stylesheet">
+{% endblock %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'relacionamento.html' %} {% endblock %}
+{% block main %}
+<h3>Detalhes do cliente</h3>
+<div class="espaco-medio">
+    <div><label class="col-sm-2">Nome</label><label class="col-sm-10 field-form-black">{{object.nome}}</label></div>
+    <div><label class="col-sm-2">Nome preferencial</label><label class="col-sm-10 field-form-black">{{object.nome_preferencial}}</label>
+    </div>
+    <div><label class="col-sm-2">Endereço</label><label class="col-sm-10 field-form-black">{{object.endereco|default_if_none:'---'}}</label>
+    </div>
+    <div><label class="col-sm-2">Watsapp</label><label class="col-sm-10 field-form-black">{{object.watsapp|default_if_none:'---'}}</label>
+    </div>
+    <div><label class="col-sm-2">Celular</label><label class="col-sm-10 field-form-black">{{object.celular|default_if_none:'---'}}</label>
+    </div>
+    <div><label class="col-sm-2">Fone residencial</label><label class="col-sm-10 field-form-black">{{object.fone_residencial|default_if_none:'---'}}</label>
+    </div>
+    <div><label class="col-sm-2">Interfone</label><label class="col-sm-10 field-form-black">{{object.interfone|default_if_none:'---'}}</label>
+    </div>
+    <div><label class="col-sm-2">E-Mail</label><label class="col-sm-10 field-form-black">{{object.email|default_if_none:'---'}}</label>
+    </div>
+    <div><label class="col-sm-2">Data de aniversário</label><label class="col-sm-10 field-form-black">{{object.data_aniversario|default_if_none:'---'}}</label>
+    </div>
+    <div><label class="col-sm-2">Sexo</label><label class="col-sm-10 field-form-black">{{object.sexo|default_if_none:'---'}}</label>
+    </div>
+    <div><label class="col-sm-2">Responsável</label><label class="col-sm-10 field-form-black">{{object.responsavel|default_if_none:'---'}}</label>
+    </div>
+    <div><label class="col-sm-2">Observações</label><label class="col-sm-10 field-form-black">{{object.observacao|default_if_none:'---'}}</label>
+    </div>
+</div>
+<div class="col-sm-offset-2 col-sm-10">
+    <a class="btn btn-lg btn-primary botao-esquerdo" href="{% url 'cliente_update' object.id %}">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="texto-botao">Editar</span></a>
+    {% if object.esta_ativo %}
+    <a class="btn btn-lg btn-danger botao-esquerdo" href="{% url 'cliente_active' object.id %}">
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <span class="texto-botao">Desativar</span></a>
+    {% else %}
+    <a class="btn btn-lg btn-success botao-esquerdo" href="{% url 'cliente_active' object.id %}">
+        <span class="glyphicon glyphicon-star-empty"></span>
+        <span class="texto-botao">Ativar</span></a>
+    {% endif %}
+    <a class="btn btn-lg btn-danger botao-esquerdo" href="{% url 'cliente_delete' object.id %}">
+        <span class="glyphicon glyphicon-trash"></span>
+        <span class="texto-botao">Excluir</span></a>
+    <a class="btn btn-lg btn-danger botao-esquerdo" href="{% url 'cliente_block' object.id %}">
+        <span class="glyphicon glyphicon-lock"></span>
+        <span class="texto-botao">Bloquear</span></a>
+    <a class="btn btn-lg btn-primary botao-esquerdo" href="{% url 'cliente_list' %}">
+        <span class="glyphicon glyphicon-repeat"></span>
+        <span class="texto-botao">Voltar</span></a>
+</div>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'compras.html' %} {% endblock %}
+{% block javascript %}
+<link href="{% static 'css/compras.css' %}" rel="stylesheet">
+<script type="text/javascript">
+    $(function() {
+        $(".inline.{{ pedidoitem_form.prefix }}").formset({
+            prefix: "{{ pedidoitem_form.prefix }}",
+        })
+    })
+</script>
+{% endblock %}
+{% block main %}
+<div>
+    <h3>Incluir pedido</h3>
+    <form method='POST'>
+        {% csrf_token %}
+        <legend>Pedido</legend>
+        {% for item in form %}
+        <fieldset>
+            <div class="form-group espaco-medio">
+                {{ item.errors }}
+                <div class="col-sm-2">
+                    {{ item.label_tag }}
+                </div>
+                <div class="col-sm-10 field-form-black">
+                    {{ item }}
+                </div>
+            </div>
+        </fieldset>
+        {% endfor %}
+        <legend>Itens</legend>
+        {{ pedidoitem_form.management_form }}
+        {{ pedidoitem_form.non_form_errors }}
+        <fieldset class="espaco-medio">
+            <div class="rows {{ pedidoitem_form.prefix }}">
+                <div class="col-sm-3">Item</div>
+                <div class="col-sm-3">Quantidade</div>
+                <div class="col-sm-6">Descrição</div>
+            </div>
+        </fieldset>
+        {% for item in pedidoitem_form %}
+        <fieldset class="espaco-medio">
+            <div class="rows {{ pedidoitem_form.prefix }}">
+                {{ item.id }}
+                <div class="col-sm-3">
+                {{ item.item.errors }}
+                <!-- {{ item.item.label_tag }} -->
+                {{ item.item }}
+                </div>
+                <div class="col-sm-3">
+                {{ item.quantidade.errors }}
+                <!-- {{ item.quantidade.label_tag }} -->
+                {{ item.quantidade }}
+                </div>
+                <div class="col-sm-6">
+                {{ item.descricao.errors }}
+                <!-- {{ item.descricao.label_tag }} -->
+                {{ item.descricao }}
+                </div>
+            </div>
+        </fieldset>
+        {% endfor %}
+        <div class="form-group espaco-medio">
+            <div class='col-sm-offset-2 col-sm-10'>
+                <button type='submit' class='btn btn-lg btn-danger botao-esquerdo'>
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <span class="texto-botao">Salvar</span></button>
+                <a href="{% url 'pedido_list' %}" class='btn btn-lg btn-primary'>
+                    <span class="glyphicon glyphicon-repeat"></span>
+                    <span class="texto-botao">Voltar</span></a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

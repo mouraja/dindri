@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'producao.html' %} {% endblock %}
+{% block main %}
+<h1>Lista das bases</h1>
+{% for base in object %}
+<div class='list-group'>
+    <a class='list-group-item' href="{% url 'base_detail' base.id %}">{{base}}</a>
+</div>
+{% empty %}
+<div class='alert alert-info'>Não há base cadastrada.</div>
+{% endfor %}
+<div class="panel-default panel-success">
+    <a class='btn btn-success btn-lg' href="{% url 'base_create' %}">Nova base</a>
+</div>
+{% endblock %}

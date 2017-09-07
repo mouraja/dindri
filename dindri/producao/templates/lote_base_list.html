@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'producao.html' %} {% endblock %}
+{% block main %}
+<h1>Lista de lotes de bases</h1>
+{% for lote_base in object %}
+<div class='list-group'>
+    <a class='list-group-item' href="{% url 'lote_base_detail' lote_base.id %}">{{lote_base}}</a>
+</div>
+{% empty %}
+<div class="alert alert-info">Não há lote de base cadastrada.</div>
+{% endfor %}
+<div class="panel-heading panel-success">
+    <a class='btn btn-success btn-lg' href="{% url 'lote_base_create' %}">Novo lote de base</a>
+</div>
+{% endblock %}

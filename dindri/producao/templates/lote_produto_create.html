@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block javascript %}
+<link href="{% static 'css/producao.css' %}" rel="stylesheet">
+{% endblock %}
+{% load bootstrap %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'producao.html' %} {% endblock %}
+{% block main %}
+<h3>Incluir lote de produto</h3>
+<form method='POST'>
+    {% csrf_token %}
+    {{form|bootstrap}}
+    <button type='submit' class='btn btn-success'>Salvar</button>
+</form>
+{% endblock %}

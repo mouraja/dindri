@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'producao.html' %} {% endblock %}
+{% block main %}
+<h1>Lista de lotes de produtos</h1>
+{% for lote_produto in object %}
+<div class='list-group'>
+    <a class='list-group-item' href="{% url 'lote_produto_detail' lote_produto.id %}">{{lote_produto}}</a>
+</div>
+{% empty %}
+<div class='panel-heading panel-danger'>Não há lote de produto cadastrado.</div>
+{% endfor %}
+<div class="panel-heading panel-success">
+    <a class='btn btn-success btn-lg' href="{% url 'lote_produto_create' %}">Novo lote de produto</a>
+</div>
+{% endblock %}

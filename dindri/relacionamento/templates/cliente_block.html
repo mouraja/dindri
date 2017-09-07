@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block javascript %}
+<link href="{% static 'css/relacionamento.css' %}" rel="stylesheet">
+{% endblock %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'relacionamento.html' %} {% endblock %}
+{% block main %}
+<h1>Confirmação do bloqueio dos dados do cliente</h1>
+<form class="form-horizontal" method='POST'>
+    {% csrf_token %}
+    <div class="form-group espaco-medio">
+        {{ form.nome_preferencial.errors }}
+        <div class="col-sm-2">
+            {{ form.nome_preferencial.label_tag }}
+        </div>
+        <div class="col-sm-10 field-form-black">{{ form.nome_preferencial }}</div>
+    </div>
+    <div class="form-group">
+        {{ form.motivo_bloqueio.errors }}
+        <div class="col-sm-2">
+            {{ form.motivo_bloqueio.label_tag }}
+        </div>
+        <div class="col-sm-10 field-form-black">
+            {{ form.motivo_bloqueio }}
+        </div>
+    </div>
+    {{ form.esta_ativo.as_hidden }}
+    {{ form.esta_bloqueado.as_hidden }}
+    <div class='form-group espaco-medio'>
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type='submit' class='btn btn-lg btn-danger botao-esquerdo'>
+                <span class=" glyphicon glyphicon-lock"></span>
+                <span class="texto-botao">Confirma bloqueio!</span>
+            </button>
+            <a href="{% url 'cliente_list' %}" class='btn btn-lg btn-primary'>
+                <span class="glyphicon glyphicon-repeat"></span>
+                <span class="texto-botao">Cancelar</span>
+            </a>
+        </div>
+    </div>
+</form>
+{% endblock %}

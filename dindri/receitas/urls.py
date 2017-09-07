@@ -1,0 +1,31 @@
+"""
+dindri URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/1.11/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.conf.urls import url, include
+    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
+"""
+from django.conf.urls import url
+from django.contrib import admin
+from receitas.views import ReceitasHomeView
+from receitas.views import ReceitaListView, ReceitaDetailView, ReceitaCreateView, ReceitaUpdateView, ReceitaDeleteView
+
+urlpatterns = [
+   # Receitas
+   url(r'^$', ReceitasHomeView.as_view(), name='receitas_home'),
+   # Receita
+   url(r'^receita/lista/$', ReceitaListView.as_view(), name='receita_list'),
+   url(r'^receita/detalha(?P<pk>\d+)$', ReceitaDetailView.as_view(), name='receita_detail'),
+   url(r'^receita/novo/$', ReceitaCreateView.as_view(), name='receita_create'),
+   url(r'^receita/edita/(?P<pk>\d+)$', ReceitaUpdateView.as_view(), name='receita_update'),
+   url(r'^receita/exclui/(?P<pk>\d+)$', ReceitaDeleteView.as_view(), name='receita_delete'),
+]

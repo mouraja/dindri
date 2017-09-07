@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block javascript %}
+<link href="{% static 'css/compras.css' %}" rel="stylesheet">
+{% endblock %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'compras.html' %} {% endblock %}
+{% block main %}
+<h3>Lista de Compras</h3>
+<div class='panel-heading panel-success'>
+    <a class='btn btn-success btn-lg' href="{% url 'compra_create' %}">
+        <span class="glyphicon glyphicon-plus"></span>
+        <span class="texto-botao">Nova compra</span>
+    </a>
+</div>
+{% if object_list %}
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th width="156px">&nbsp;</th>
+                <th>Compra</th>
+                <th>Fornecedor</th>
+                <th>Data da Compra</th>
+                <th>Valor Total</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% with 'compra' as object_nome %}
+            {% for item in object_list %}
+            <tr class="field-form-black">
+                <td>
+                    <span>
+                        <a href="#compra{{item.id}}" data-toggle="collapse">
+                            <span class="icone-link-expande-ativo glyphicon glyphicon-refresh"></span>
+                        </a>
+                        {% include 'compras_icone_master_list.html' %}
+                    </span>
+                </td>
+                <td><span>{{item.id}}</span></td>
+                <td><span>{{item.fornecedor.nome|default_if_none:'---'}}</span></td>
+                <td><span>{{item.data_compra|default_if_none:'---'}}</span></td>
+                <td><span>{{item.valor_total|default_if_none:'---'}}</span></td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    {% if item.compraitem_set.all %}
+                    <div id="compra{{item.id}}" class="panel-collapse collapse panel-heading panel-success">
+                        <div class="panel-heading panel-success">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Descrição</th>
+                                        <th>Quantidade</th>
+                                        <th>Valor Unitário</th>
+                                        <th>Valor Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for detail in item.compraitem_set.all %}
+                                    <tr class="field-form-black">
+                                        <td><span>{{detail.item.id}}</span></td>
+                                        <td><span>{{detail.item.nome}}</span></td>
+                                        <td><span>{{detail.quantidade}}</span></td>
+                                        <td><span>{{detail.valor_unitario}}</span></td>
+                                        <td><span>{{detail.valor_total}}</span></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info">Não há itens nesta compra.</div>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        {% endwith %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">Não há compra cadastrada.</div>
+{% endif %}
+{% endblock %}

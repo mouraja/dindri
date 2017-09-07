@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block javascript %}
+<link href="{% static 'css/compras.css' %}" rel="stylesheet">
+{% endblock %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'compras.html' %} {% endblock %}
+{% block main %}
+<h3>Detalhes da compra</h3>
+<legend>Compra</legend>
+<div class="espaco-medio">
+    <div class="rows espaco-medio">
+        <div class="col-sm-2"><label>Compra:</label></div>
+        <div class="col-sm-10 field-form-black"><label>{{object.id}}"</label></div>
+    </div>
+    <div class="rows espaco-medio">
+        <div class="col-sm-2"><label>Fornecedor:</label></div>
+        <div class="col-sm-10 field-form-black">
+            <label>{{object.fornecedor.id|default_if_none:'---'}} -
+                {{object.fornecedor.nome|default_if_none:'---'}}"</label>
+        </div>
+    </div>
+    <div class="rows espaco-medio">
+        <div class="col-sm-2"><label>Data da compra:</label></div>
+        <div class="col-sm-10 field-form-black"><label>{{object.data_compra|default_if_none:'---'}}</label></div>
+    </div>
+    <div class="rows espaco-medio">
+        <div class="col-sm-2"><label>Data da emissão:</label></div>
+        <div class="col-sm-10 field-form-black"><label>{{object.data_emissao}}</label></div>
+    </div>
+    <div class="rows espaco-medio">
+        <div class="col-sm-2"><label>Valor total:</label></div>
+        <div class="col-sm-10 field-form-black"><label>{{object.valor_total|default_if_none:0.00}}</label></div>
+    </div>
+    <div class="rows espaco-medio">
+        <div class="col-sm-2"><label>Situação da compra:</label></div>
+        <div class="col-sm-10 field-form-black"><label>{{object.get_situacao_compra_descricao}}</label></div>
+    </div>
+    <div class="rows espaco-medio">
+        <div class="col-sm-2">Pedidos:</div>
+        <div class="col-sm-10 field-form-black">
+            {% for item in object.pedido.all %}
+            <label>{{item}} / </label>
+            {% empty %}
+            <label>---</label>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<legend>Itens</legend>
+<div class="espaco-medio">
+    <div class="rows">
+        <div class="col-sm-2">Item</div>
+        <div class="col-sm-4">Descrição</div>
+        <div class="col-sm-2">Quantidade</div>
+        <div class="col-sm-2">Valor unitário</div>
+        <div class="col-sm-2">Valor total</div>
+    </div>
+    {% for detail in object.compraitem_set.all %}
+    <div class="rows field-form-black">
+        <div class="col-sm-2"><label>{{detail.id}}</label></div>
+        <div class="col-sm-4"><label>{{detail.item.id}} - {{detail.item.nome}}</label></div>
+        <div class="col-sm-2"><label>{{detail.quantidade}}</label></div>
+        <div class="col-sm-2"><label>{{detail.valor_unitario}}</label></div>
+        <div class="col-sm-2"><label>{{detail.valor_total}}</label></div>
+    </div>
+    {% empty %}
+    <div class="alert alert-info">Não há itens nesta compra</div>
+    {% endfor %}
+</div>
+
+<div class="col-sm-offset-2 col-sm-10 espaco-medio">
+    <a class="btn btn-lg btn-primary botao-esquerdo" href="{% url 'compra_update' object.id %}">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="texto-botao">Editar</span></a>
+    <a class="btn btn-lg btn-danger botao-esquerdo" href="{% url 'compra_done' object.id %}">
+        <span class="glyphicon glyphicon-ok"></span>
+        <span class="texto-botao">Concluir</span></a>
+    <a class="btn btn-lg btn-danger botao-esquerdo" href="{% url 'compra_cancel' object.id %}">
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <span class="texto-botao">Cancelar</span></a>
+    <a class="btn btn-lg btn-danger botao-esquerdo" href="{% url 'compra_delete' object.id %}">
+        <span class="glyphicon glyphicon-trash"></span>
+        <span class="texto-botao">Excluir</span></a>
+    <a class="btn btn-lg btn-primary botao-esquerdo" href="{% url 'compra_list' %}">
+        <span class="glyphicon glyphicon-repeat"></span>
+        <span class="texto-botao">Voltar</span></a>
+</div>
+{% endblock %}

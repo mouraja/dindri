@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block javascript %}
+<link href="{% static 'css/producao.css' %}" rel="stylesheet">
+{% endblock %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'producao.html' %} {% endblock %}
+{% block main %}
+{% if form.esta_ativo.value %}
+<h3>Confirmação da desativação do tipo de base</h3>
+{% else %}
+<h3>Confirmação da ativação do tipo de base</h3>
+{% endif %}
+<form class="form-horizontal" method='POST'>
+    {% csrf_token %}
+    <div class="form-group espaco-medio">
+        {{ form.nome.errors }}
+        <div class="col-sm-2">{{ form.nome.label_tag }}</div>
+        <div class="col-sm-10 field-form-black">{{ form.nome }}</div>
+    </div>
+    <div class="form-group espaco-medio">
+        {{ form.descricao.errors }}
+        <div class="col-sm-2">{{ form.descricao.label_tag }}</div>
+        <div class="col-sm-10 field-form-black">{{ form.descricao }}</div>
+    </div>
+    {{ form.esta_ativo.as_hidden }}
+    <div class='form-group espaco-medio'>
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type='submit' class='btn btn-lg btn-danger botao-esquerdo'>
+                {% if form.esta_ativo.value %}
+                <span class="glyphicon glyphicon-remove"></span>
+                <span class="texto-botao">Confirma desativação!</span>
+                {% else %}
+                <span class="glyphicon glyphicon-ok"></span>
+                <span class="texto-botao">Confirma ativação!</span>
+                {% endif %}
+            </button>
+            <a href="{% url 'tipo_base_list' %}" class='btn btn-lg btn-primary'>
+                <span class="glyphicon glyphicon-repeat"></span>
+                <span class="texto-botao">Cancelar</span></a>
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'receitas.html' %} {% endblock %}
+{% block main %}
+<h1>Editar dados da receita</h1>
+<form method='POST'>
+    {% csrf_token %}
+    {{form|bootstrap}}
+    <button type='submit' class='btn btn-success'>Salvar</button>
+</form>
+{% endblock %}

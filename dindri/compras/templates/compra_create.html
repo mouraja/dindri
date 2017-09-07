@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'compras.html' %} {% endblock %}
+{% block javascript %}
+<link href="{% static 'css/compras.css' %}" rel="stylesheet"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $(".inline.{{ compraitem_form.prefix }}").formset({
+            prefix: "{{ compraitem_form.prefix }}",
+        })
+    })
+
+    function calculate(me){
+        id=$(me).attr("id");
+        var nomes = id.split("-");
+        var prefixo = "#" + nomes[0] + "-" + nomes[1] + "-";
+        if (nomes.length == 3) {
+            var v = prefixo + "valor_unitario";
+            var q = prefixo + "quantidade";
+            var t = prefixo + "valor_total";
+            $(t).val($(q).val() * $(v).val());
+            totalize(nomes[0]);
+        }
+    }
+
+    function totalize(nome) {
+        var indice = 0;
+        var st = "#" + nome + "-" + indice + "-valor_total";
+        //alert(st);
+        var t = 0;
+        while ($(st).val() != undefined) {
+            t += parseFloat($(st).val());
+            alert(t);
+            st = "#" + nome + "-" + (++indice) + "-valor_total";
+            //alert(indice);
+            //alert($(st).val());
+            if (indice > 100) {
+                break;
+            }
+        }
+        $("#id_valor_total").val(t);
+    }
+</script>
+{% endblock %}
+{% block main %}
+<div>
+    <h3>Incluir compra</h3>
+    <form method='POST'>
+        {% csrf_token %}
+        <legend>Compra</legend>
+        {% for item in form %}
+        <fieldset>
+            <div class="form-group espaco-medio">
+                {{ item.errors }}
+                <div class="col-sm-2">
+                    {{ item.label_tag }}
+                </div>
+                <div class="col-sm-10 field-form-black">
+                    {{ item }}
+                </div>
+            </div>
+        </fieldset>
+        {% endfor %}
+        <legend>Itens</legend>
+        {{ compraitem_form.management_form }}
+        {{ compraitem_form.non_form_errors }}
+        <fieldset class="espaco-medio">
+            <div class="rows {{ compraitem_form.prefix }}">
+                <div class="col-sm-4">Item</div>
+                <div class="col-sm-8">
+                    <div class="col-sm-4">Quantidade</div>
+                    <div class="col-sm-4">Valor Unitário</div>
+                    <div class="col-sm-4">Valor Total</div>
+                </div>
+            </div>
+        </fieldset>
+        {% for item in compraitem_form %}
+        <fieldset class="espaco-medio">
+            <div class="inline {{ compraitem_form.prefix }}">
+                {{ item.id }}
+                <div class="col-sm-4">
+                {{ item.item.errors }}
+                <!--{{ item.item.label_tag }}-->
+                {{ item.item }}
+                </div>
+                <div class="col-sm-8">
+                    <div class="col-sm-4">
+                    {{ item.quantidade.errors }}
+                    <!-- {{ item.quantidade.label_tag }} -->
+                    {{ item.quantidade }}
+                    </div>
+                    <div class="col-sm-4">
+                    {{ item.valor_unitario.errors }}
+                    <!-- {{ item.valor_unitario.label_tag }} -->
+                    {{ item.valor_unitario }}
+                    </div>
+                    <div class="col-sm-4">
+                    {{ item.valor_total.errors }}
+                    <!-- {{ item.valor_total.label_tag }} -->
+                    {{ item.valor_total }}
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        {% endfor %}
+        <div class="form-group espaco-medio">
+            <div class='col-sm-offset-2 col-sm-10'>
+                <button type='submit' class='btn btn-lg btn-danger botao-esquerdo'>
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <span class="texto-botao">Salvar</span></button>
+                <a href="{% url 'compra_list' %}" class='btn btn-lg btn-primary'>
+                    <span class="glyphicon glyphicon-repeat"></span>
+                    <span class="texto-botao">Voltar</span></a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

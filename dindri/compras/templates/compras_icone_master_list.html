@@ -1,0 +1,15 @@
+<a class="field-form-black" href="{% url object_nome|add:'_detail' item.id %}">
+    <span title="Clique para visualizar detalhes." class="icone-link-detalha-ativo glyphicon glyphicon-eye-open"></span>
+</a>
+<a href="{% url object_nome|add:'_update' item.id %}">
+    <span title="Clique para atualizar." class="icone-link-edita-ativo glyphicon glyphicon-pencil"></span>
+</a>
+<a class="icone-link" href="{% url object_nome|add:'_done' item.id %}">
+    <span title="Clique para concluir." class="icone-link-ativa-ativo glyphicon glyphicon-ok"></span>
+</a>
+<a class="icone-link" href="{% url object_nome|add:'_cancel' item.id %}">
+    <span title="Clique para cancelar." class="icone-link-inativa-ativo glyphicon glyphicon-remove"></span>
+</a>
+<a href="{% url object_nome|add:'_delete' item.id %}">
+    <span title="Clique para excluir." class="icone-link-exclui-ativo glyphicon glyphicon-trash"></span>
+</a>

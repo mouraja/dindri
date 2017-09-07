@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'compras.html' %} {% endblock %}
+{% block main %}
+<h1>Detalhes do pedido</h1>
+<p>{{object}}</p>
+<p><a class="btn btn-success" href="{% url 'pedido_update' object.id %}">Editar</a></p>
+<p><a class="btn btn-danger" href="{% url 'pedido_delete' object.id %}">Excluir</a></p>
+<p><a class="btn btn-info" href="{% url 'pedido_list' %}">Voltar</a></p>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block javascript %}
+<link href="{% static 'css/relacionamento.css' %}" rel="stylesheet">
+{% endblock %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'relacionamento.html' %} {% endblock %}
+{% block main %} {% include 'relacionamento_menu.html' %} {% endblock %}

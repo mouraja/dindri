@@ -1,0 +1,23 @@
+<a class="field-form-black" href="{% url object_nome|add:'_detail' item.id %}">
+    <span class="icone-link-detalha-ativo glyphicon glyphicon-eye-open"></span>
+</a>
+{% if item.esta_ativo %}
+<a href="{% url object_nome|add:'_update' item.id %}">
+    <span class="icone-link-edita-ativo glyphicon glyphicon-pencil"></span>
+</a>
+{% else %}
+<span class="icone-link-edita-inativo glyphicon glyphicon-pencil"></span>
+{% endif %}
+<a class="icone-link" href="{% url object_nome|add:'_active' item.id %}">
+    {% if item.esta_ativo %}
+    <span class="icone-link-inativa-ativo glyphicon glyphicon-warning-sign"></span>
+    {% else %}
+    <span class="icone-link-ativa-ativo glyphicon glyphicon-star-empty"></span>
+    {% endif %}
+</a>
+<a href="{% url object_nome|add:'_delete' item.id %}">
+    <span class="icone-link-exclui-ativo glyphicon glyphicon-trash"></span>
+</a>
+{% if item.tem_restricao %}
+<span class="icone-link-restringe-ativo glyphicon glyphicon-ban-circle"></span>
+{% endif %}

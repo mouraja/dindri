@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'producao.html' %} {% endblock %}
+{% block main %}
+<h1>Detalhes do sabor</h1>
+<p>{{object.nome}}</p>
+<p>{{object.descricao}}</p>
+<p><a class="btn btn-success" href="{% url 'sabor_update' object.id %}">Editar</a></p>
+<p><a class="btn btn-danger" href="{% url 'sabor_delete' object.id %}">Excluir</a></p>
+<p><a class='btn btn-info" href="{% url ' sabor_list' %}">Voltar</a></p>
+{% endblock %}

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cp ${1}_create.html ${2}_create.html;
+cp ${1}_detail.html ${2}_detail.html;
+cp ${1}_list.html ${2}_list.html;
+cp ${1}_update.html ${2}_update.html;
+cp ${1}_delete_confirm.html ${2}_delete_confirm.html;
+
+

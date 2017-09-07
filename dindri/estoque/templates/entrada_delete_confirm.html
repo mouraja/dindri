@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'estoque.html' %} {% endblock %}
+{% block main %}
+<h1>Confirmação da exclusão do entrada</h1>
+<form method='POST'>
+    {% csrf_token %}
+    <p>Você tem certeza que deseja excluir o base {{object}}</p>
+    <button type='submit' class='btn-danger'>Tenho certeza</button>
+</form>
+{% endblock %}

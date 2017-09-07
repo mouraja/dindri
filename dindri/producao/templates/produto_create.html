@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'producao.html' %} {% endblock %}
+{% block javascript %}
+<link href="{% static 'css/producao.css' %}" rel="stylesheet">
+<script type="text/javascript">
+        $(function() {
+            $(".inline.{{ produtosabor_form.prefix }}").formset({
+                prefix: "{{ produtosabor_form.prefix }}",
+            })
+            $(".inline.{{ produtoinsumo_form.prefix }}").formset({
+                prefix: "{{ produtoinsumo_form.prefix }}",
+            })
+        })
+
+</script>
+{% endblock %}
+{% block main %}
+<h3>Incluir produto</h3>
+<form class="form-horizontal" method='POST'>
+    {% csrf_token %}
+    {% for item in form %}
+    <div class="form-group espaco-medio">
+        {{ item.errors }}
+        <div class="col-sm-2">
+            {{ item.label_tag }}
+        </div>
+        <div class="col-sm-10 field-form-black">
+            {{ item }}
+        </div>
+    </div>
+    {% endfor %}
+    <fieldset>
+        <legend>Sabores</legend>
+        {{ produtosabor_form.management_form }}
+        {{ produtosabor_form.non_form_errors }}
+        {% for form in produtosabor_form %}
+        {{ form.id }}
+        <div class="inline {{ produtosabor_form.prefix }} field-form-black">
+            {{ form.base.errors }}
+            {{ form.base.label_tag }}
+            {{ form.base }}
+            {{ form.volume.errors }}
+            {{ form.volume.label_tag }}
+            {{ form.volume }}
+            {{ form.valor_custo_unitario.errors }}
+            {{ form.valor_custo_unitario.label_tag }}
+            {{ form.valor_custo_unitario }}
+            {{ form.valor_custo_total.errors }}
+            {{ form.valor_custo_total.label_tag }}
+            {{ form.valor_custo_total }}
+        </div>
+        {% endfor %}
+    </fieldset>
+    <fieldset>
+        <legend>Insumos</legend>
+        {{ produtoinsumo_form.management_form }}
+        {{ produtoinsumo_form.non_form_errors }}
+        {% for form in produtoinsumo_form %}
+        {{ form.id }}
+        <div class="inline {{ produtoinsumo_form.prefix }}">
+            {{ form.insumo.errors }}
+            {{ form.insumo.label_tag }}
+            {{ form.insumo }}
+            {{ form.volume.errors }}
+            {{ form.volume.label_tag }}
+            {{ form.volume }}
+            {{ form.valor_custo_unitario.errors }}
+            {{ form.valor_custo_unitario.label_tag }}
+            {{ form.valor_custo_unitario }}
+            {{ form.valor_custo_total.errors }}
+            {{ form.valor_custo_total.label_tag }}
+            {{ form.valor_custo_total }}
+        </div>
+        {% endfor %}
+    </fieldset>
+    <input type="submit" value="Salvar" class="class='btn btn-success"/>
+</form>
+{% endblock %}

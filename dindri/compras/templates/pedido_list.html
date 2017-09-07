@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block javascript %}
+<link href="{% static 'css/compras.css' %}" rel="stylesheet">
+{% endblock %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'compras.html' %} {% endblock %}
+{% block main %}
+<h3>Lista de pedidos</h3>
+<div class='panel-heading panel-success'>
+    <a class='btn btn-success btn-lg' href="{% url 'pedido_create' %}">
+        <span class="glyphicon glyphicon-plus"></span>
+        <span class="texto-botao">Novo pedido</span>
+    </a>
+</div>
+{% if object_list %}
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th width="156px">&nbsp;</th>
+                <th>Pedido</th>
+                <th>Data limite</th>
+                <th>Situação do pedido</th>
+                <th>Situação da compra</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% with 'pedido' as object_nome %}
+            {% for item in object_list %}
+            <tr class="field-form-black">
+                <td>
+                    <span>
+                        <a href="#pedido{{item.id}}" data-toggle="collapse">
+                            <span class="icone-link-expande-ativo glyphicon glyphicon-refresh"></span>
+                        </a>
+                        {% include 'compras_icone_list.html' %}
+                    </span>
+                </td>
+                <td><span>{{item.id}}</span></td>
+                <td><span>{{item.data_limite|default_if_none:'---'}}</span></td>
+                <td><span>{{item.get_situacao_pedido_descricao}}</span></td>
+                <td><span>{{item.get_situacao_compra_descricao}}</span></td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    {% if item.pedidoitem_set.all %}
+                    <div id="pedido{{item.id}}" class="panel-collapse collapse panel-heading panel-success">
+                        <div class="panel-heading panel-success">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Nome</th>
+                                        <th>Quantidade</th>
+                                        <th>Descrição</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for detail in item.pedidoitem_set.all %}
+                                    <tr class="field-form-black">
+                                        <td><span>{{detail.item.id}}</span></td>
+                                        <td><span>{{detail.item.nome}}</span></td>
+                                        <td><span>{{detail.quantidade}}</span></td>
+                                        <td><span>{{detail.descricao}}</span></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info">Não há itens neste pedido.</div>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        {% endwith %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">Não há pedidos cadastrados.</div>
+{% endif %}
+{% endblock %}

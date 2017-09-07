@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'producao.html' %} {% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+        $(function() {
+            $(".inline.{{ saborbase_form.prefix }}").formset({
+                prefix: "{{ saborbase_form.prefix }}",
+            })
+            $(".inline.{{ saborinsumo_form.prefix }}").formset({
+                prefix: "{{ saborinsumo_form.prefix }}",
+            })
+        })
+
+</script>
+{% endblock %}
+{% block main %}
+<div>
+    <h1>Incluir sabor</h1>
+    <form method='POST'>
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+        </div>
+        <fieldset>
+            <legend>Bases</legend>
+            {{ saborbase_form.management_form }}
+            {{ saborbase_form.non_form_errors }}
+            {% for form in saborbase_form %}
+            {{ form.id }}
+            <div class="inline {{ saborbase_form.prefix }}">
+                {{ form.base.errors }}
+                {{ form.base.label_tag }}
+                {{ form.base }}
+                {{ form.volume.errors }}
+                {{ form.volume.label_tag }}
+                {{ form.volume }}
+                {{ form.valor_custo_unitario.errors }}
+                {{ form.valor_custo_unitario.label_tag }}
+                {{ form.valor_custo_unitario }}
+                {{ form.valor_custo_total.errors }}
+                {{ form.valor_custo_total.label_tag }}
+                {{ form.valor_custo_total }}
+            </div>
+            {% endfor %}
+        </fieldset>
+        <fieldset>
+            <legend>Insumos</legend>
+            {{ saborinsumo_form.management_form }}
+            {{ saborinsumo_form.non_form_errors }}
+            {% for form in saborinsumo_form %}
+            {{ form.id }}
+            <div class="inline {{ saborinsumo_form.prefix }}">
+                {{ form.insumo.errors }}
+                {{ form.insumo.label_tag }}
+                {{ form.insumo }}
+                {{ form.volume.errors }}
+                {{ form.volume.label_tag }}
+                {{ form.volume }}
+                {{ form.valor_custo_unitario.errors }}
+                {{ form.valor_custo_unitario.label_tag }}
+                {{ form.valor_custo_unitario }}
+                {{ form.valor_custo_total.errors }}
+                {{ form.valor_custo_total.label_tag }}
+                {{ form.valor_custo_total }}
+            </div>
+            {% endfor %}
+        </fieldset>
+        <input type="submit" value="Salvar" class="class='btn btn-success"/>
+    </form>
+</div>
+{% endblock %}

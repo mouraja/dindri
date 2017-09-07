@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'vendas.html' %} {% endblock %}
+{% block main %}
+<h1>Lista de tipos de contatos</h1>
+{% if object_list %}
+<div class='list-group'>
+    {% for tipo_contato in object_list %}
+    <a class='list-group-item' href="{% url 'tipo_contato_detail' tipo_contato.id %}">{{tipo_contato}}</a>
+    {% endfor %}
+</div>
+{% else %}
+<div class='alert alert-info'>Não há tipo de contato cadastrado.</div>
+{% endif %}
+<div class="panel-heading panel-success">
+    <a class='btn btn-success btn-lg' href="{% url 'tipo_contato_create' %}">Novo tipo de contato</a>
+</div>
+{% endblock %}

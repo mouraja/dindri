@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block javascript %}
+<link href="{% static 'css/compras.css' %}" rel="stylesheet">
+{% endblock %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'compras.html' %} {% endblock %}
+{% block main %}
+<h3>Lista de fornecedores</h3>
+<div class='panel-heading panel-success'>
+    <a class='btn btn-success btn-lg' href="{% url 'fornecedor_create' %}">
+        <span class="glyphicon glyphicon-plus"></span>
+        <span class="texto-botao">Novo Fornecedor</span>
+    </a>
+</div>
+{% if object_list %}
+<div>
+    <table class="field-form-black table table-hover">
+        <thead>
+        <tr>
+            <td width="100px">&nbsp;</td>
+            <th width="55%">Nome</th>
+            <th width="25%">Telefone</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% with 'fornecedor' as object_nome %}
+            {% for item in object_list %}
+            <tr>
+                <td>{% include 'compras_icone_list.html' %}</td>
+                <td><span>{{item.nome}}</span></td>
+                <td><span>{{item.telefone|default_if_none:'---'}}</span></td>
+            </tr>
+            {% endfor %}
+        {% endwith %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class='alert alert-info'>Não há registro de fornecedor.</div>
+{% endif %}
+
+{% endblock %}

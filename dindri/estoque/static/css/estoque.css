@@ -1,0 +1,97 @@
+.field-form-black {
+    color: Black;
+}
+
+.icone-link-detalha-ativo {
+    color: Orange;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.icone-link-edita-inativo {
+    color: Gray;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.icone-link-edita-ativo {
+    color: Green;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.icone-link-exclui-ativo {
+    color: Red;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.icone-link-ativa-ativo {
+    color: Blue;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.icone-link-inativa-ativo {
+    color: Gray;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.icone-link-restringe-ativo {
+    color: Purple;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.icone-link {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.espaco-medio {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.evidencia {
+    border: 1px solid DarkRed;
+    background-color: Crimson;
+    padding-top: 2px;
+    padding-right: 5px;
+    padding-bottom: 2px;
+    padding-left: 5px;
+}
+.destaque {
+    width: 70%;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 2px;
+    padding-right: 5px;
+    padding-bottom: 2px;
+    padding-left: 5px;
+    border: 1px solid #1c6d5d;
+    background-color: #0ae0b5;
+}
+.legenda {
+    width:130px;
+    padding-right: 5px;
+}
+.botoes {
+    padding-left: 130px;
+    padding-top: 10px;
+}
+.menu-local {
+    padding-top: 30px;
+}
+.menu-item {
+    color: black;
+}
+.texto-botao {
+    padding-right: 5px;
+    padding-left: 10px;
+}
+.botao-esquerdo {
+    margin-left: 0px;
+    margin-right: 25px;
+}

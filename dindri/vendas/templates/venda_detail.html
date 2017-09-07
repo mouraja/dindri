@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'vendas.html' %} {% endblock %}
+{% block main %}
+<h1>Editar dados da reposição</h1>
+<div class="panel">
+    <div class="panel-heading panel-success">
+        {{object}}
+    </div>
+    <div class="panel-group">
+        {% for item in object.vendaproduto_set.all %}
+        <div class="panel-heading panel-info">{{item}}</div>
+        {% endfor %}
+    </div>
+</div>
+<div class="btn-group">
+    <a class="btn btn-success" href="{% url 'venda_update' object.id %}">Editar</a>
+    <a class="btn btn-danger" href="{% url 'venda_delete' object.id %}">Excluir</a>
+    <a class="btn btn-info" href="{% url 'venda_list' %}">Voltar</a>
+</div>
+{% endblock %}

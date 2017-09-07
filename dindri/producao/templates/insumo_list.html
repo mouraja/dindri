@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block javascript %}
+<link href="{% static 'css/producao.css' %}" rel="stylesheet">
+{% endblock %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'producao.html' %} {% endblock %}
+{% block main %}
+<h3>Lista de insumos</h3>
+<div class="panel-heading panel-success">
+    <a class="btn btn-success btn-lg" href="{% url 'insumo_create' %}">
+        <span class="glyphicon glyphicon-pus"></span>
+        <span class="texto-botao">Novo insumo</span>
+    </a>
+</div>
+
+<div>
+    <table class="field-form-black table table-hover">
+        <thead>
+        <tr>
+            <th width="100px">&nbsp;</th>
+            <th width="50%">Nome</th>
+            <th width="35%">Descrição</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if object_list %}
+        {% for item in object_list %}
+        <tr>
+            <td>
+                {% if item.esta_ativo %}
+                <a class="icone-link-ativo" href="{% url 'insumo_update' item.id %}">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+                {% else %}
+                <span class="icone-link-inativo glyphicon glyphicon-pencil"></span>
+                {% endif %}
+                <span>&nbsp;</span>
+                <a class="icone-link-ativo" href="{% url 'insumo_active' item.id %}">
+                    {% if item.esta_ativo %}
+                    <span class="glyphicon glyphicon-warning-sign"></span>
+                    {% else %}
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                    {% endif %}
+                </a>
+                <span>&nbsp;</span>
+                <a href="{% url 'insumo_delete' item.id %}">
+                    <span class="icone-link-ativo glyphicon glyphicon-trash"></span>
+                </a>
+            </td>
+            <td>
+                <a class="field-form-black" href="{% url 'tipo_sabor_detail' item.id %}">
+                    <span>{{item.nome}}</span>
+                </a>
+            </td>
+            <td>
+                <span>{{item.descricao}}</span>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">Não há insumo cadastrado.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

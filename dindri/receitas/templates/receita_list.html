@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'receitas.html' %} {% endblock %}
+{% block main %}
+<h1>Lista de receitas</h1>
+{% if object_list %}
+<div class='list-group'>
+    {% for receita in object_list %}
+    <a class='list-group-item' href="{% url 'receita_detail' receita.id %}">{{receita}}</a>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info">Não há receita cadastrada.</div>
+{% endif %}
+<div class='panel-heading panel-success'>
+    <a class='btn btn-success btn-lg' href="{% url 'receita_create' %}">Novo receita</a>
+</div>
+{% endblock %}

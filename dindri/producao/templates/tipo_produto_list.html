@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block javascript %}
+<link href="{% static 'css/producao.css' %}" rel="stylesheet">
+{% endblock %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'producao.html' %} {% endblock %}
+{% block main %}
+<h3>Lista de tipos de produtos</h3>
+<div class="panel-heading panel-success">
+    <a class="btn btn-success btn-lg" href="{% url 'tipo_produto_create' %}">
+        <span class="glyphicon glyphicon-plus"></span>
+        <span class="texto-botao">Novo tipo de produto</span>
+    </a>
+</div>
+
+<div>
+    <table class="field-form-black table table-hover">
+        <thead>
+        <tr>
+            <th width="100px">&nbsp;</th>
+            <th width="50%">Nome</th>
+            <th width="35%">Descrição</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% with 'tipo_produto' as object_nome %}
+        {% if object_list %}
+        {% for item in object_list %}
+        <tr>
+            <td>
+                {% include 'producao_icone_list.html' %}
+            </td>
+            <td>
+                <span>{{item.nome}}</span>
+            </td>
+            <td>
+                <span>{{item.descricao}}</span>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">Não há tipo de produto cadastrado.</td>
+        </tr>
+        {% endif %}
+        {% endwith %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

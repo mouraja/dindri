@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block javascript %}
+<link href="{% static 'css/producao.css' %}" rel="stylesheet" xmlns="http://www.w3.org/1999/html">
+{% endblock %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'producao.html' %} {% endblock %}
+{% block main %}
+<h3>Detalhes do tipo de base</h3>
+<div class="espaco-medio">
+    <div><label class="col-sm-2">Nome</label>
+        <label class="col-sm-10 field-form-black">{{object.nome}}</label></div>
+    <div><label class="col-sm-2">Descrição</label>
+        <label class="col-sm-10 field-form-black">{{object.descricao}}</label></div>
+    {% if object.tem_restricao %}
+    <div><label class="col-sm-2">Restrições</label>
+        <label class="col-sm-10 field-form-black">{{object.restricoes}}</label></div>
+    {% endif %}
+</div>
+<div class="col-sm-offset-2 col-sm-10 espaco-medio">
+    {% with 'tipo_base' as object_nome %}
+    <a class="btn btn-lg btn-primary botao-esquerdo" href="{% url object_nome|add:'_update' object.id %}">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="texto-botao">Editar</span></a>
+    <a class="btn btn-lg btn-danger botao-esquerdo" href="{% url object_nome|add:'_active' object.id %}">
+        {% if object.esta_ativo %}
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <span class="texto-botao">Desativar</span>
+        {% else %}
+        <span class="glyphicon glyphicon-star-empty"></span>
+        <span class="texto-botao">Ativar</span>
+        {% endif %}
+    </a>
+    <a class="btn btn-lg btn-danger botao-esquerdo" href="{% url object_nome|add:'_delete' object.id %}">
+        <span class="glyphicon glyphicon-trash"></span>
+        <span class="texto-botao">Excluir</span></a>
+    <a class="btn btn-lg btn-primary" href="{% url object_nome|add:'_list' %}">
+        <span class="glyphicon glyphicon-repeat"></span>
+        <span class="texto-botao">Voltar</span></a>
+    {% endwith %}
+</div>
+{% endblock %}

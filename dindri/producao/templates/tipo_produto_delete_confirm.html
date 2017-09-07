@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block javascript %}
+<link href="{% static 'css/producao.css' %}" rel="stylesheet">
+{% endblock %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'producao.html' %} {% endblock %}
+{% block main %}
+<h3>Confirmação da exclusão dos dados do tipo de produto</h3>
+<form class="form-horizontal" method='POST'>
+    {% csrf_token %}
+    <div class="form-group espaco-medio">
+        <div class="col-sm-2">
+            <label class="control-form-label" for="id_nome">Nome</label>
+        </div>
+        <div class="col-sm-10 field-form-black">
+            <input type="text" class="control-form" size="80px" readonly="readonly" id="id_nome"
+                   value="{{ object.nome }}">
+        </div>
+    </div>
+    <div class="form-group" espaco-medio>
+        <div class="col-sm-2">
+            <label class="control-form-label" for="id_nome">Descrição</label>
+        </div>
+        <div class="col-sm-10 field-form-black">
+            <textarea cols="80" rows="3" class="control-form" id="id_descricao">{{ object.descricao }}</textarea>
+        </div>
+    </div>
+    <div class='form-group espaco-medio'>
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type='submit' class='btn btn-lg btn-danger'>
+                <span class="glyphicon glyphicon-remove"></span>
+                <span class="texto-botao">Confirma exclusão!</span></button>
+            <span>&nbsp;&nbsp;&nbsp;</span>
+            <a href="{% url 'tipo_produto_list' %}" class='btn btn-lg btn-primary'>
+                <span class="glyphicon glyphicon-repeat"></span>
+                <span class="texto-botao">Cancelar</span></a>
+        </div>
+    </div>
+</form>
+{% endblock %}

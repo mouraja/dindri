@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'producao.html' %} {% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+        $(function() {
+            $(".inline.{{ baseinsumo_form.prefix }}").formset({
+                prefix: "{{ baseinsumo_form.prefix }}",
+            })
+        })
+
+</script>
+{% endblock %}
+{% block main %}
+<div>
+    <h1>Incluir base</h1>
+    <form method='POST'>
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+        </div>
+        <fieldset>
+            <legend>Insumos</legend>
+            {{ baseinsumo_form.management_form }}
+            {{ baseinsumo_form.non_form_errors }}
+            {% for form in comprainsumo_form %}
+            {{ form.id }}
+            <div class="inline {{ comprainsumo_form.prefix }}">
+                {{ form.insumo.errors }}
+                {{ form.insumo.label_tag }}
+                {{ form.insumo }}
+                {{ form.quantidade.errors }}
+                {{ form.quantidade.label_tag }}
+                {{ form.quantidade }}
+                {{ form.valor_custo_unitario.errors }}
+                {{ form.valor_custo_unitario.label_tag }}
+                {{ form.valor_custo_unitario }}
+                {{ form.valor_custo_total.errors }}
+                {{ form.valor_custo_total.label_tag }}
+                {{ form.valor_custo_total }}
+            </div>
+            {% endfor %}
+        </fieldset>
+        <input type="submit" value="Salvar" class="class='btn btn-success"/>
+    </form>
+</div>
+{% endblock %}

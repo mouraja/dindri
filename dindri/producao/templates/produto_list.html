@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'producao.html' %} {% endblock %}
+{% block main %}
+<h1>Lista de produtos</h1>
+{% for produto in object %}
+<div class='list-group'>
+    <a class='list-group-item' href="{% url 'produto_detail' produto.id %}">{{produto}}</a>
+</div>
+{% empty %}
+<div class='alert alert-info'>Não há produto cadastrado.</div>
+{% endfor %}
+<div class="panel-heading panel-success">
+    <a class='btn btn-success btn-lg' href="{% url 'produto_create' %}">Novo produto</a>
+</div>
+{% endblock %}

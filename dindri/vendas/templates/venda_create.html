@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'vendas.html' %} {% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+        $(function() {
+            $(".inline.{{ venda_produto_form.prefix }}").formset({
+                prefix: "{{ venda_produto_form.prefix }}",
+            })
+        })
+
+</script>
+{% endblock %}
+{% block main %}
+<div>
+    <h1>Incluir venda</h1>
+    <form method='POST'>
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+        </div>
+        <fieldset>
+            <legend>Produtos</legend>
+            {{ venda_produto_form.management_form }}
+            {{ venda_produto_form.non_form_errors }}
+            {% for item in venda_produto_form %}
+            {{ item.id }}
+            <div class="inline {{ venda_produto_form.prefix }}">
+                {{ item.produto.errors }}
+                {{ item.produto.label_tag }}
+                {{ item.produto }}
+                {{ item.quantidade.errors }}
+                {{ item.quantidade.label_tag }}
+                {{ item.quantidade }}
+                {{ item.valor_custo.errors }}
+                {{ item.valor_custo.label_tag }}
+                {{ item.valor_custo }}
+                {{ item.valor_minimo.errors }}
+                {{ item.valor_minimo.label_tag }}
+                {{ item.valor_minimo }}
+                {{ item.valor_unitario.errors }}
+                {{ item.valor_unitario.label_tag }}
+                {{ item.valor_unitario }}
+                {{ item.valor_desconto_unitario.errors }}
+                {{ item.valor_desconto_unitario.label_tag }}
+                {{ item.valor_desconto_unitario }}
+                {{ item.valor_subtotal.errors }}
+                {{ item.valor_subtotal.label_tag }}
+                {{ item.valor_subtotal }}
+                {{ item.valor_desconto_total.errors }}
+                {{ item.valor_desconto_total.label_tag }}
+                {{ item.valor_desconto_total }}
+                {{ item.valor_total.errors }}
+                {{ item.valor_total.label_tag }}
+                {{ item.valor_total }}
+            </div>
+            {% endfor %}
+        </fieldset>
+        <input type="submit" value="Salvar" class="class='btn btn-success"/>
+    </form>
+</div>
+{% endblock %}

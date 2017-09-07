@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block javascript %}
+<link href="{% static 'css/relacionamento.css' %}" rel="stylesheet">
+{% endblock %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'relacionamento.html' %} {% endblock %}
+{% block main %}
+<h3>Lista de Clientes</h3>
+<div class='panel-heading panel-success'>
+    <a class='btn btn-success btn-lg' href="{% url 'cliente_create' %}">
+        <span class="glyphicon glyphicon-plus"></span>
+        <span class="texto-botao">Novo Cliente</span>
+    </a>
+</div>
+{% if object_list %}
+<div>
+    <table class="field-form-black table table-hover">
+        <thead>
+        <tr>
+            <td width="100px">&nbsp;</td>
+            <th width="35%">Nome preferencial</th>
+            <th width="25%">Endereço</th>
+            <th width="15%">Watsapp</th>
+            <th width="15%">Interfone</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cliente in object_list %}
+        <tr>
+            <td>
+                {% if cliente.esta_ativo %}
+                <a class="icone-link-ativo" href="{% url 'cliente_update' cliente.id %}">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+                {% else %}
+                <span class="icone-link-inativo glyphicon glyphicon-pencil"></span>
+                {% endif %}
+                <span>&nbsp;</span>
+                <a class="icone-link-ativo" href="{% url 'cliente_active' cliente.id %}">
+                    {% if cliente.esta_ativo %}
+                    <span class="glyphicon glyphicon-warning-sign"></span>
+                    {% else %}
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                    {% endif %}
+                </a>
+                <span>&nbsp;</span>
+                <a class="icone-link-ativo" href="{% url 'cliente_block' cliente.id %}">
+                    <span class="glyphicon glyphicon-lock"></span>
+                </a>
+                <span>&nbsp;</span>
+                <a href="{% url 'cliente_delete' cliente.id %}">
+                    <span class="icone-link-ativo glyphicon glyphicon-trash"></span>
+                </a>
+            </td>
+            <td>
+                <a class="field-form-black" href="{% url 'cliente_detail' cliente.id %}">
+                    <span>{{cliente.nome_preferencial}}</span>
+                </a>
+            </td>
+            <td>
+                <span>{{cliente.endereco}}</span>
+            </td>
+            <td>
+                <span>{{cliente.watsapp}}</span>
+            </td>
+            <td>
+                <span>{{cliente.interfone}}</span>
+            <td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class='alert alert-info'>Não há cliente cadastrado.</div>
+{% endif %}
+
+{% endblock %}

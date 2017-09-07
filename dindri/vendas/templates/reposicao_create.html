@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'vendas.html' %} {% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+        $(function() {
+            $(".inline.{{ reposicao_produto_form.prefix }}").formset({
+                prefix: "{{ reposicao_produto_form.prefix }}",
+            })
+        })
+
+</script>
+{% endblock %}
+{% block main %}
+<div>
+    <h1>Incluir reposição</h1>
+    <form method='POST'>
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+        </div>
+        <fieldset>
+            <legend>Produtos</legend>
+            {{ reposicao_produto_form.management_form }}
+            {{ reposicao_produto_form.non_form_errors }}
+            {% for item in reposicao_produto_form %}
+            {{ item.id }}
+            <div class="inline {{ reposicao_produto_form.prefix }}">
+                {{ item.produto.errors }}
+                {{ item.produto.label_tag }}
+                {{ item.produto }}
+                {{ item.quantidade.errors }}
+                {{ item.quantidade.label_tag }}
+                {{ item.quantidade }}
+                {{ item.valor_custo_unitario.errors }}
+                {{ item.valor_custo_unitario.label_tag }}
+                {{ item.valor_custo_unitario }}
+                {{ item.valor_custo_total.errors }}
+                {{ item.valor_custo_total.label_tag }}
+                {{ item.valor_custo_total }}
+            </div>
+            {% endfor %}
+        </fieldset>
+        <input type="submit" value="Salvar" class="class='btn btn-success"/>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'receitas.html' %} {% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+        $(function() {
+            $(".inline.{{ ingredient_form.prefix }}").formset({
+                prefix: "{{ ingredient_form.prefix }}",
+            })
+            $(".inline.{{ instruction_form.prefix }}").formset({
+                prefix: "{{ instruction_form.prefix }}",
+            })
+        })
+
+</script>
+{% endblock %}
+{% block main %}
+<div>
+    <h1>Incluir receita</h1>
+    <form method='POST'>
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+        </div>
+        <fieldset>
+            <legend>Ingredientes</legend>
+            {{ ingredient_form.management_form }}
+            {{ ingredient_form.non_form_errors }}
+            {% for form in ingredient_form %}
+            {{ form.id }}
+            <div class="inline {{ ingredient_form.prefix }}">
+                {{ form.ingrediente.errors }}
+                {{ form.ingrediente.label_tag }}
+                {{ form.ingrediente }}
+                {{ form.volume.errors }}
+                {{ form.volume.label_tag }}
+                {{ form.volume }}
+                {{ form.unidade.errors }}
+                {{ form.unidade.label_tag }}
+                {{ form.unidade }}
+            </div>
+            {% endfor %}
+        </fieldset>
+        <fieldset>
+            <legend>Intruções</legend>
+            {{ instruction_form.management_form }}
+            {{ instruction_form.non_form_errors }}
+            {% for form in instruction_form %}
+            {{ form.id }}
+            <div class="inline {{ instruction_form.prefix }}">
+                {{ form.passo.errors }}
+                {{ form.passo.label_tag }}
+                {{ form.passo }}
+                {{ form.instrucao.errors }}
+                {{ form.instrucao.label_tag }}
+                {{ form.instrucao }}
+            </div>
+            {% endfor %}
+        </fieldset>
+        <input type="submit" value="Salvar" class="class='btn btn-success"/>
+    </form>
+</div>
+
+{% endblock %}

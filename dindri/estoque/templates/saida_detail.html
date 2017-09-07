@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'estoque.html' %} {% endblock %}
+{% block main %}
+<h1>Editar dados do saida</h1>
+<p>{{object.nome}}</p>
+<p>{{object.descricao}}</p>
+<p><a class="btn btn-success" href="{% url 'saida_update' object.id %}">Editar</a></p>
+<p><a class="btn btn-danger" href="{% url 'saida_delete' object.id %}">Excluir</a></p>
+<p><a class='btn btn-info" href="{% url ' saida_list' %}">Voltar</a></p>
+{% endblock %}

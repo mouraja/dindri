@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block javascript %}
+<link href="{% static 'css/relacionamento.css' %}" rel="stylesheet">
+{% endblock %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'relacionamento.html' %} {% endblock %}
+{% block main %}
+<h3>Confirmação da exclusão dos dados do cliente</h3>
+<form class="form-horizontal" method='POST'>
+    {% csrf_token %}
+    <div class="form-group espaco-medio">
+        <label class="col-sm-2" for="id_nome_preferencial">Nome preferencial</label>
+        <div class="col-sm-10 field-form-black">
+            <input type="text" size="40px" readonly="readonly" id="id_nome_preferencial"
+                   value="{{ object.nome_preferencial }}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2" for="id_observacao">Observação</label>
+        <div class="col-sm-10 field-form-black">
+            <textarea rows="3" cols="80" id="id_observacao">{{ object.observacao }}</textarea>
+        </div>
+    </div>
+    <div class='form-group espaco-medio'>
+        <div class='col-sm-offset-2 col-sm-10'>
+            <button type='submit' class='btn btn-lg btn-danger botao-esquerdo'>
+                <span class="glyphicon glyphicon-remove"></span>
+                <span class="texto-botao">Confirma exclusão!</span></button>
+            <a href="{% url 'cliente_list' %}" class='btn btn-lg btn-primary'>
+                <span class="glyphicon glyphicon-repeat"></span>
+                <span class="texto-botao">Cancelar</span></a>
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block menu %} {% include 'home_menu.html' %} {% endblock %}
+{% block titulo %} {% include 'vendas.html' %} {% endblock %}
+{% block main %}
+<h1>Editar dados do tipo de contato</h1>
+<p>{{object.nome}}</p>
+<p>{{object.descricao}}</p>
+<p><a class="btn btn-success" href="{% url 'tipo_contato_update' object.id %}">Editar</a></p>
+<p><a class="btn btn-danger" href="{% url 'tipo_contato_delete' object.id %}">Excluir</a></p>
+<p><a class='btn btn-info" href="{% url ' tipo_contato_list' %}">Voltar</a></p>
+{% endblock %}

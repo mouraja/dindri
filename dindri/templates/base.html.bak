@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>{{ titulo }}</title>
+      <link rel='stylesheet' href='http:///netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css'>
+      <link rel='stylesheet' href='http:///netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.theme.min.css'>
+      <script src='http:///netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js'></script>
+   </head>
+   <body>
+      {% block main %}
+         <p>Não há conteúdo.</p>
+      {% endblock %}
+   </body>
+</html>
