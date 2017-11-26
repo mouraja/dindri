@@ -39,7 +39,6 @@ class Insumo(Seguranca, Restricao):
    def __str__(self):
       return "%i - %s" % (self.id, self.nome)
 
-
 class LoteCusto(Seguranca, Restricao):
    data_producao = models.DateTimeField(
       auto_now_add=True,
@@ -101,7 +100,6 @@ class LoteCusto(Seguranca, Restricao):
 
    class Meta:
       abstract = True
-
 
 class BaseCusto(Seguranca, Restricao):
    nome = models.CharField(max_length=150)
@@ -173,21 +171,17 @@ class BaseCusto(Seguranca, Restricao):
    class Meta:
       abstract = True
 
-
 class LoteBase(LoteCusto):
    def __str__(self):
       return "%i - %s" % (self.id, self.data_producao)
-
 
 class LoteSabor(LoteCusto):
    def __str__(self):
       return "%i - %s" % (self.id, self.data_producao)
 
-
 class LoteProduto(LoteCusto):
    def __str__(self):
       return "%i - %s" % (self.id, self.data_producao)
-
 
 class TipoBase(Seguranca, Restricao):
    nome = models.CharField(
@@ -212,7 +206,6 @@ class TipoBase(Seguranca, Restricao):
    def __str__(self):
       return self.nome
 
-
 class Base(BaseCusto):
    lote = models.ForeignKey(
       LoteBase,
@@ -227,7 +220,6 @@ class Base(BaseCusto):
 
    def __str__(self):
       return "%s %s - %i ml" % (self.tipo_de_base.nome, str(self.data_base), self.volume_estoque)
-
 
 class BaseInsumo(models.Model):
    base = models.ForeignKey(
@@ -253,7 +245,6 @@ class BaseInsumo(models.Model):
    def __str__(self):
       return "%s - %i - %f" % (self.insumo.nome, self.quantidade, self.valor_custo_total)
 
-
 class BaseConsumo(models.Model):
    base = models.ForeignKey(
       Base,
@@ -266,7 +257,6 @@ class BaseConsumo(models.Model):
 
    def __str__(self):
       return "%s - %i" % (str(self.data_consumo), self.volume_consumido)
-
 
 class BaseDescarte(models.Model):
    base = models.ForeignKey(
@@ -292,7 +282,6 @@ class BaseDescarte(models.Model):
       # def __str__(self):
       # return "%i - %s" % (self.id, self.nome)
 
-
 class TipoSabor(Seguranca, Restricao):
    nome = models.CharField(
       max_length=150,
@@ -316,7 +305,6 @@ class TipoSabor(Seguranca, Restricao):
    def __str__(self):
       return "%i - %s" % (self.id, self.nome)
 
-
 class Sabor(BaseCusto):
    lote = models.ForeignKey(
       LoteSabor,
@@ -338,7 +326,6 @@ class Sabor(BaseCusto):
       self.esta_excluido = True
       super(Sabor, self).save(*args, **kwargs)
       return
-
 
 class SaborBase(models.Model):
    sabor = models.ForeignKey(
@@ -362,7 +349,6 @@ class SaborBase(models.Model):
 
    def __str__(self):
       return "%s - %i - %f" % ((self.base.data_producao), self.volume, self.valor_custo_total)
-
 
 class SaborInsumo(models.Model):
    sabor = models.ForeignKey(
@@ -388,7 +374,6 @@ class SaborInsumo(models.Model):
    def __str__(self):
       return "%s - %i - %f" % ((self.base.data_producao), self.volume, self.valor_custo_total)
 
-
 class SaborConsumo(models.Model):
    sabor = models.ForeignKey(
       Sabor,
@@ -400,7 +385,6 @@ class SaborConsumo(models.Model):
 
    def __str__(self):
       return "%s - %i" % (str(self.data_consumo), self.volume_consumido)
-
 
 class SaborDescarte(models.Model):
    sabor = models.ForeignKey(
@@ -414,7 +398,6 @@ class SaborDescarte(models.Model):
 
    def __str__(self):
       return "%s - %i" % (str(self.data_descarte), self.volume_descarte)
-
 
 class TipoProduto(Seguranca, Restricao):
    nome = models.CharField(
@@ -482,7 +465,6 @@ class TipoProduto(Seguranca, Restricao):
    def __str__(self):
       return "%i - %s" % (self.id, self.nome)
 
-
 class Produto(Seguranca, Restricao):
    lote = models.ForeignKey(
       LoteProduto,
@@ -537,7 +519,6 @@ class Produto(Seguranca, Restricao):
    def __str__(self):
       return self.nome
 
-
 class ProdutoSabor(models.Model):
    produto = models.ForeignKey(
       Produto,
@@ -547,7 +528,6 @@ class ProdutoSabor(models.Model):
       Sabor,
       on_delete=models.PROTECT,
    )
-
 
 class ProdutoInsumo(models.Model):
    produto = models.ForeignKey(
@@ -569,7 +549,6 @@ class ProdutoInsumo(models.Model):
 
    valor_custo_total = property(get_valor_custo_total)
 
-
 class ProdutoBase(models.Model):
    produto = models.ForeignKey(
       Produto,
@@ -589,7 +568,6 @@ class ProdutoBase(models.Model):
       return (self.quantidade * self.valor_custo_unitario)
 
    valor_custo_total = property(get_valor_custo_total)
-
 
 class ReposicaoInsumo(models.Model):
    data_reposicao = models.DateTimeField()
