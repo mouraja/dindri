@@ -13,8 +13,6 @@ UNIDADES_MEDIDAS_CHOICES=(
    (UNIDADE_LITRO,'Litro'),
 )
 
-# Create your models here.
-
 class Categoria(Seguranca, Restricao):
    '''Categoria dos itens estocados'''
    nome = models.CharField(
@@ -38,7 +36,6 @@ class Categoria(Seguranca, Restricao):
 
    def __str__(self):
       return "%i - %s" % (self.id, self.nome)
-
 
 class Item(Seguranca, Restricao):
    '''Itens estocados'''
@@ -113,7 +110,6 @@ class Item(Seguranca, Restricao):
    def __str__(self):
       return "%i - %s" % (self.id, self.nome)
 
-
 class Entrada(Seguranca):
    '''Entradas oriundas das compras'''
    data_entrada = models.DateField()
@@ -133,7 +129,6 @@ class Entrada(Seguranca):
 
    def __str__(self):
       return "%s - %i - %f" % (str(self.data_entrada), self.fornecedor, self.valor_custo_total)
-
 
 class EntradaItem(models.Model):
    '''Entradas de itens no estoque'''
@@ -160,7 +155,6 @@ class EntradaItem(models.Model):
    def __str__(self):
       return "%s - $i - %f" % (self.item.nome, self.quantidadde, self.valor_custo_total)
 
-
 class Saida(Seguranca):
    '''Saidas efetuadas no estoque'''
    data_saida = models.DateField()
@@ -172,7 +166,6 @@ class Saida(Seguranca):
 
    def __str__(self):
       return "%s - %i - %f" % (str(self.data_saida), self.valor_custo_total)
-
 
 class SaidaItem(models.Model):
    '''Saidas de itens do estoque'''
